@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - ONLINE SURFACE CRACK DETECTION USING CNN</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
+    <!-- Include Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .hero {
+            flex: 1; /* Make the hero section take up the remaining space */
+            background: black url(static/images/picc.jpg) center / cover;
+        }
+        .main-title {
+            color: white; 
+            font-size: 3rem; /* Increased font size */
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .title {
+            color: white;
+            text-align: center;
+        }
+        .label {
+            color: white;
+        }
+        /* Custom style for eye icon */
+        .eye-icon {
+            color: blue; /* Set color to blue */
+            cursor: pointer; /* Add cursor pointer for better UX */
+            position: absolute; /* Ensure icon is clickable */
+            right: 10px; /* Position icon within the input field */
+            top: 50%; /* Center icon vertically */
+            transform: translateY(-50%);
+        }
+        .reg {
+            color: white;
+        }
+        .footer {
+            color: black;
+            padding: 0.0rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: whitesmoke;
+        }
+        .footer a {
+            color: black;
+            margin: 0 5px;
+        }
+        .footer-icons, .footer-contact {
+            text-align: center;
+            width: 100%;
+            margin-top: 0.5rem;
+        }
+        .footer-icons a {
+            margin: 0 5px;
+        }
+        .center-content {
+            text-align: center;
+            flex: 1;
+            margin-top: 0.5rem;
+        }
+        .error-message {
+            color: red; /* Make error message text red */
+            margin-top: 1rem; /* Add margin to separate from other elements */
+            text-align: center; /* Center the error message */
+        }
+    </style>
+</head>
+
+<body>
+    <section class="hero is-fullheight">
+        <div class="hero-body">
+            <div class="container">
+                <div class="columns is-centered">
+                    <div class="column is-4">
+                        <h1 class="main-title"><b>ORSCD</b></h1>
+                        <h1 class="title"><b>Login</b></h1>
+                        <form id="login-form">
+                            <div class="field">
+                                <label class="label">Email</label>
+                                <div class="control">
+                                    <input class="input" type="email" id="email" placeholder="e.g. alex@example.com" required>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label class="label">Password</label>
+                                <div class="control input-container">
+                                    <input class="input" type="password" id="login-password" placeholder="********" required>
+                                    <!-- Eye icon with custom style -->
+                                    <i class="fas fa-eye eye-icon" id="eye-icon"></i>
+                                </div>
+                            </div>
+                            <div id="error-message" class="error-message"></div>
+                            <div class="field">
+                                <div class="control">
+                                    <button class="button is-black is-fullwidth" type="submit">Login</button>
+                                </div>
+                            </div>
+                            <div class="reg">
+                                <p class="has-text-centered">
+                                    <a href="/reg" color="white">Don't have an account? Register</a>
+                                </p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-icons">
+            <a href="https://web.whatsapp.com/" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://www.facebook.com/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.twitter.com/" target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="https://www.linkedin.com/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+        <div class="center-content">
+            <p>Contact us for login  <span>👉</span><span>✉️</span><a href="mailto:support@orscd.com"><b>support@orscd.com</b></a></p>
+            <p class="footer-title">&copy;<b> 2024 ONLINE RAIL SURFACE CRACK DETECTION USING CNN</b>. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Include Font Awesome JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const eyeIcon = document.getElementById('eye-icon');
+            const passwordField = document.getElementById('login-password');
+            const errorMessage = document.getElementById('error-message');
+            const validCredentials = [
+                { email: "nmca2024@gmail.com", password: "nmca@2024" },
+                { email: "sairam43@gmail.com", password: "sairam@43" },
+                { email: "praveen07@gmail.com", password: "praveen@07" },
+                { email: "loyolaacademy@gmail.com", password: "loyola@123" }
+            ];
+
+            eyeIcon.addEventListener('click', function () {
+                if (passwordField.type === 'password') {
+                    passwordField.type = 'text';
+                    eyeIcon.classList.remove('fa-eye');
+                    eyeIcon.classList.add('fa-eye-slash');
+                } else {
+                    passwordField.type = 'password';
+                    eyeIcon.classList.remove('fa-eye-slash');
+                    eyeIcon.classList.add('fa-eye');
+                }
+            });
+
+            const loginForm = document.getElementById('login-form');
+            loginForm.addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('login-password').value;
+
+                const user = validCredentials.find(cred => cred.email === email);
+
+                if (!user) {
+                    errorMessage.textContent = 'Email is incorrect.';
+                } else if (user.password !== password) {
+                    errorMessage.textContent = 'Password is incorrect.';
+                } else {
+                    window.location.href = '/homepage';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

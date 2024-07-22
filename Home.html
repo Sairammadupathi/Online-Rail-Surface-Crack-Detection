@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ONLINE RAIL SURFACE CRACK DETECTION USING CNN</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        .container {
+            text-align: center;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            color: blue;
+        }
+        h1 {
+            margin-bottom: 10px;
+            font-size: 3rem;
+            overflow: hidden; /* Ensure the overflow is hidden for animation */
+            white-space: nowrap; /* Prevent line breaks */
+        }
+        h2 {
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            overflow: hidden; /* Ensure the overflow is hidden for animation */
+            white-space: nowrap; /* Prevent line breaks */
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        .button-container form {
+            display: inline;
+        }
+        .🤚 {
+            --skin-color: #E4C560;
+            --tap-speed: 0.6s;
+            --tap-stagger: 0.1s;
+            position: relative;
+            width: 80px;
+            height: 60px;
+        }
+        .🤚:before {
+            content: '';
+            display: block;
+            width: 180%;
+            height: 75%;
+            position: absolute;
+            top: 70%;
+            right: 20%;
+            background-color: black;
+            border-radius: 40px 10px;
+            filter: blur(10px);
+            opacity: 0.3;
+        }
+        .🌴 {
+            display: block;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: var(--skin-color);
+            border-radius: 10px 40px;
+        }
+        .👍 {
+            position: absolute;
+            width: 120%;
+            height: 38px;
+            background-color: var(--skin-color);
+            bottom: -18%;
+            right: 1%;
+            transform-origin: calc(100% - 20px) 20px;
+            transform: rotate(-20deg);
+            border-radius: 30px 20px 20px 10px;
+            border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+            border-left: 2px solid rgba(0, 0, 0, 0.1);
+        }
+        .👍:after {
+            width: 20%;
+            height: 60%;
+            content: '';
+            background-color: rgba(255, 255, 255, 0.3);
+            position: absolute;
+            bottom: -8%;
+            left: 5px;
+            border-radius: 60% 10% 10% 30%;
+            border-right: 2px solid rgba(0, 0, 0, 0.05);
+        }
+        .👉 {
+            position: absolute;
+            width: 80%;
+            height: 35px;
+            background-color: var(--skin-color);
+            bottom: 32%;
+            right: 64%;
+            transform-origin: 100% 20px;
+            animation-duration: calc(var(--tap-speed) * 2);
+            animation-timing-function: ease-in-out;
+            animation-iteration-count: infinite;
+            transform: rotate(10deg);
+        }
+        .👉:before {
+            content: '';
+            position: absolute;
+            width: 140%;
+            height: 30px;
+            background-color: var(--skin-color);
+            bottom: 8%;
+            right: 65%;
+            transform-origin: calc(100% - 20px) 20px;
+            transform: rotate(-60deg);
+            border-radius: 20px;
+        }
+        .👉:nth-child(1) {
+            animation-delay: 0;
+            filter: brightness(70%);
+            animation-name: tap-upper-1;
+        }
+        .👉:nth-child(2) {
+            animation-delay: var(--tap-stagger);
+            filter: brightness(80%);
+            animation-name: tap-upper-2;
+        }
+        .👉:nth-child(3) {
+            animation-delay: calc(var(--tap-stagger) * 2);
+            filter: brightness(90%);
+            animation-name: tap-upper-3;
+        }
+        .👉:nth-child(4) {
+            animation-delay: calc(var(--tap-stagger) * 3);
+            filter: brightness(100%);
+            animation-name: tap-upper-4;
+        }
+        @keyframes tap-upper-1 {
+            0%, 50%, 100% {
+                transform: rotate(10deg) scale(0.4);
+            }
+            40% {
+                transform: rotate(50deg) scale(0.4);
+            }
+        }
+        @keyframes tap-upper-2 {
+            0%, 50%, 100% {
+                transform: rotate(10deg) scale(0.6);
+            }
+            40% {
+                transform: rotate(50deg) scale(0.6);
+            }
+        }
+        @keyframes tap-upper-3 {
+            0%, 50%, 100% {
+                transform: rotate(10deg) scale(0.8);
+            }
+            40% {
+                transform: rotate(50deg) scale(0.8);
+            }
+        }
+        @keyframes tap-upper-4 {
+            0%, 50%, 100% {
+                transform: rotate(10deg) scale(1);
+            }
+            40% {
+                transform: rotate(50deg) scale(1);
+            }
+        }
+        /* Animation for fading in the "WELCOME" text letter by letter */
+        @keyframes fadeInText {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        /* Apply the animation to each letter */
+        h1 span {
+            display: inline-block;
+            animation: fadeInText 2.0s forwards; /* Adjust duration as needed */
+            opacity: 0;
+        }
+        /* Add delay to each letter */
+        h1 span:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+        h1 span:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+        h1 span:nth-child(3) {
+            animation-delay: 0.5s;
+        }
+        h1 span:nth-child(4) {
+            animation-delay: 0.7s;
+        }
+        h1 span:nth-child(5) {
+            animation-delay: 0.9s;
+        }
+        h1 span:nth-child(6) {
+            animation-delay: 1.1s;
+        }
+        h1 span:nth-child(7) {
+            animation-delay: 1.3s;
+        }
+        h1 span:nth-child(8) {
+            animation-delay: 1.5s;
+        }
+        h1 span:nth-child(9) {
+            animation-delay: 1.7s;
+        }
+        h1 span:nth-child(10) {
+            animation-delay: 1.9;
+        }
+        /* Animation for fading in the "ONLINE RAIL SURFACE CRACK DETECTION USING CNN" text letter by letter */
+        @keyframes fadeInText2 {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        /* Apply the animation to each letter */
+        h2 span {
+            display: inline-block;
+            animation: fadeInText2 2.0s forwards; /* Adjust duration as needed */
+            opacity: 0;
+        }
+        /* Add delay to each letter */
+        h2 span:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+        h2 span:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+        h2 span:nth-child(3) {
+            animation-delay: 0.5s;
+        }
+        h2 span:nth-child(4) {
+            animation-delay: 0.7s;
+        }
+        h2 span:nth-child(5) {
+            animation-delay: 0.9s;
+        }
+        h2 span:nth-child(6) {
+            animation-delay: 1.1s;
+        }
+        h2 span:nth-child(7) {
+            animation-delay: 1.3s;
+        }
+        h2 span:nth-child(8) {
+            animation-delay: 1.5s;
+        }
+        h2 span:nth-child(9) {
+            animation-delay: 1.7s;
+        }
+        h2 span:nth-child(10) {
+            animation-delay: 1.9;
+        }
+    </style>
+</head>
+<body>
+    <section class="section">
+        <div class="container has-text-centered bg-text" style="width: 100%">
+            <h1>
+                <b>
+                    <!-- Each letter wrapped in a span for animation -->
+                    <span>W</span>
+                    <span>E</span>
+                    <span>L</span>
+                    <span>C</span>
+                    <span>O</span>
+                    <span>M</span>
+                    <span>E</span> 
+                    <span>&nbsp;</span>
+                    <span>T</span>
+                    <span>O</span>
+                </b>
+            </h1>
+            <h2>
+                <b>
+                    <!-- Each letter wrapped in a span for animation -->
+                    <span>O</span>
+                    <span>N</span>
+                    <span>L</span>
+                    <span>I</span>
+                    <span>N</span>
+                    <span>E</span>
+                    <span>&nbsp;</span>
+                    <span>R</span>
+                    <span>A</span>
+                    <span>I</span>
+                    <span>L</span>
+                    <span>&nbsp;</span>
+                    <span>S</span>
+                    <span>U</span>
+                    <span>R</span>
+                    <span>F</span>
+                    <span>A</span>
+                    <span>C</span>
+                    <span>E</span>
+                    <span>&nbsp;</span>
+                    <span>C</span>
+                    <span>R</span>
+                    <span>A</span>
+                    <span>C</span>
+                    <span>K</span>
+                    <span>&nbsp;</span>
+                    <span>D</span>
+                    <span>E</span>
+                    <span>T</span>
+                    <span>E</span>
+                    <span>C</span>
+                    <span>T</span>
+                    <span>I</span>
+                    <span>O</span>
+                    <span>N</span>
+                    <span>&nbsp;</span>
+                    <span>U</span>
+                    <span>S</span>
+                    <span>I</span>
+                    <span>N</span>
+                    <span>G</span>
+                    <span>&nbsp;</span>
+                    <span>C</span>
+                    <span>N</span>
+                    <span>N</span>
+                </b>
+            </h2>
+            <div>
+                <i class="arrow_down"></i>
+                <div class="button-container">
+                    <form action="/dashboard" method="post" enctype="multipart/form-data" style="margin-top: 30px; text-align: center;">
+                        <button type="submit">
+                            <div class="🤚">
+                                <div class="👉"></div>
+                                <div class="👉"></div>
+                                <div class="👉"></div>
+                                <div class="👉"></div>
+                                <div class="🌴"></div>
+                                <div class="👍"></div>
+                            </div>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

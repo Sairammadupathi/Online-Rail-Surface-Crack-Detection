@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ONLINE RAIL SURFACE CRACK DETECTION USING CNN</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        .hero {
+            background: black url(static/images/bg.jpeg) center / cover;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        p {
+            text-align: center;
+        }
+
+        .title {
+            color: white;
+            font-size: 3rem;
+        }
+
+        .content {
+            padding-bottom: 140px;
+        }
+
+        button {
+            position: relative;
+            padding: 10px 20px;
+            border-radius: 7px;
+            border: 1px solid rgb(61, 106, 255);
+            font-size: 14px;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 2px;
+            background: transparent;
+            color: #fff;
+            overflow: hidden;
+            box-shadow: 0 0 0 0 transparent;
+            transition: all 0.2s ease-in;
+        }
+
+        button:hover {
+            background: rgb(61, 106, 255);
+            box-shadow: 0 0 30px 5px rgba(0, 142, 236, 0.815);
+            transition: all 0.2s ease-out;
+        }
+
+        button:hover::before {
+            animation: sh02 0.5s 0s linear;
+        }
+
+        button::before {
+            content: '';
+            display: block;
+            width: 0px;
+            height: 86%;
+            position: absolute;
+            top: 7%;
+            left: 0%;
+            opacity: 0;
+            background: #fff;
+            box-shadow: 0 0 50px 30px #fff;
+            transform: skewX(-20deg);
+        }
+
+        @keyframes sh02 {
+            from {
+                opacity: 0;
+                left: 0%;
+            }
+            50% {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+                left: 100%;
+            }
+        }
+
+        button:active {
+            box-shadow: 0 0 0 0 transparent;
+            transition: box-shadow 0.2s ease-in;
+        }
+
+        .btn {
+            font-size: 1.2rem;
+            padding: 1rem 2.5rem;
+            border: none;
+            outline: none;
+            border-radius: 0.4rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            background-color: rgb(14, 14, 26);
+            color: rgb(234, 234, 234);
+            font-weight: 700;
+            transition: 0.6s;
+            box-shadow: 0px 0px 60px #1f4c65;
+            -webkit-box-reflect: below 10px linear-gradient(to bottom, rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.4));
+        }
+
+        .btn:active {
+            scale: 0.92;
+        }
+
+        .btn:hover {
+            background: rgb(2, 29, 78);
+            background: linear-gradient(270deg, rgba(2, 29, 78, 0.681) 0%, rgba(31, 215, 232, 0.873) 60%);
+            color: rgb(4, 4, 38);
+        }
+
+        .footer {
+            color: black;
+            padding: 0.0rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: whitesmoke;
+        }
+
+        .footer a {
+            color: black;
+            margin: 0 5px;
+        }
+
+        .footer-icons, .footer-contact {
+            text-align: center;
+            width: 100%;
+            margin-top: 0.5rem;
+        }
+
+        .footer-icons a {
+            margin: 0 5px;
+        }
+
+        .center-content {
+            text-align: center;
+            flex: 1;
+            margin-top: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <section class="hero is-fullheight" has-background-red>
+        <section class="section">
+            <div class="container">
+                <h1 class="title">ONLINE RAIL SURFACE CRACK DETECTION USING CNN</h1>
+                <p>by student</p>
+            </div>
+        </section>
+
+        <section class="sss">
+            <div style="float:left; margin-top: 20px;">
+                <div>
+                    <img src="static/images/logo.jpg" width="200px" height="200px" alt="Bulma: Free, open source, &amp; modern CSS framework based on Flexbox" style="max-height: 100%;">
+                </div>
+            </div>
+            
+            <div style="float:center;">
+                <div class="container has-text-centered bg-text" style="width: 100%">
+                    <p class="subtitle" style="color:white">
+                        Check if your furry friend is truly a Defective or Non-Defective!
+                    </p>
+                    <div>
+                        <i class="arrow_down"></i>
+                        <form action="/classify" method="post" enctype="multipart/form-data" style="margin-top: 30px; width: 80%; text-align: center; margin: auto;">
+                            <div class="file has-name is-centered">
+                                <label class="file-label">
+                                    <input class="file-input" type="file" id="image" name="image">
+                                    <span class="file-cta">
+                                        <span class="file-label" color="black">
+                                            <b>Upload an image</b>
+                                        </span>
+                                    </span>
+                                    <span class="file-name" id="file-name">
+                                        <b>No file chosen</b>
+                                    </span>
+                                </label>
+                            </div>
+
+                            <br>
+                            <button class="btn" type="submit" style="padding: 8px 16px; font-size: 1rem;">Classify</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </section>
+
+    <footer class="footer">
+        <div class="footer-icons">
+            <a href="https://web.whatsapp.com/" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://www.facebook.com/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.twitter.com/" target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="https://www.linkedin.com/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+        <div class="center-content">
+            <p>Contact us for login  <span>👉</span><span>✉️</span><a href="mailto:support@orscd.com"><b>support@orscd.com</b></a></p>
+            <p class="footer-title">&copy;<b> 2024 ONLINE RAIL SURFACE CRACK DETECTION USING CNN</b>. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>
